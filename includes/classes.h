@@ -38,3 +38,25 @@ class Expense
 		std::string convertToString() const;
 		void convertFromString(std::string& line);
 };
+
+
+class ExpenseManager
+{
+	private:
+		std::vector<Expense> expenses;
+		bool isChanged = false;
+
+	public:
+		bool getIsChanged() const;
+		int getExpensesCount() const;
+		
+		void createExpenseRecord(std::string description, float amount);
+		void deleteExpenseRecord(int expID);
+		void listExpenseRecords(int month, int year);
+		void summaryOfExpenses(int month, int year);
+
+		void showHelper();
+
+		void readFromFile();
+		void writeToFile();
+};

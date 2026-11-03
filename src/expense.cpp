@@ -15,7 +15,7 @@ void Expense::setDate(std::string& newDate)
 	{
 		if (c == '-')
 		{
-			dateItems.push_back(stoi(word));
+			dateItems.push_back(std::stoi(word));
 			word = "";
 			continue;
 		}
@@ -83,10 +83,12 @@ void Expense::convertFromString(std::string& line)
 	}
 	details.push_back(word);
 
-	int newID = stoi(details[0]);
+	int newID = std::stoi(details[0]);
+	float newAmount = std::stof(details[3]);
 
 	setID(newID);
 	setDescription(details[1]);
 	setDate(details[2]);
+	setAmount(newAmount);
 }
 
