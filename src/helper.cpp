@@ -23,6 +23,16 @@ void listExpenses(ExpenseManager& em, int argc, char* arguments[])
 	}
 }
 
+void deleteExpenses(ExpenseManager& em, int argc, char* arguments[])
+{
+	if (argc < 3)
+	{
+		printErrors(2);
+		return;
+	}
+	em.deleteExpenseRecord(atoi(arguments[2]));
+}
+
 void addExpense(ExpenseManager& em, int argc, char* arguments[])
 {
 	if (argc < 4)

@@ -17,12 +17,29 @@ void ExpenseManager::createExpenseRecord(std::string description, float amount)
 	int id = expenses.back().getID() + 1;
 	Expense newExpense(id, today, description, amount);
 	expenses.push_back(newExpense);
-	std::cout << "Expense added successfully [ID: " << 1 << "]" << std::endl;
+	std::cout << "Expense added successfully [ID: " << id << "]" << std::endl;
 }
 		
 void ExpenseManager::deleteExpenseRecord(int expID)
 {
+	int index = 0;
 
+	for (Expense& e : expenses)
+	{
+		if (e.getID() == expID)
+		{
+			break;
+		}
+		index++;
+	}
+
+	if (expID < 1 || index == expenses.size())
+	{
+		std::cout << "Enter a correct expense ID." << std::endl;
+		return;
+	}
+	expenses.erase(expenses.begin() + index);
+	std::cout << "Expense removed successfully [ID: " << expID << "]" << std::endl;
 }
 		
 void ExpenseManager::listExpenseRecords(int year, int month, int day)

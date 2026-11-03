@@ -72,3 +72,4 @@ int getMaximumStringLength(std::vector<Expense>& vector);
 
 void addExpense(ExpenseManager& em, int argc, char* arguments[]);
 void listExpenses(ExpenseManager& em, int argc, char* arguments[]);
+void deleteExpenses(ExpenseManager& em, int argc, char* arguments[]);

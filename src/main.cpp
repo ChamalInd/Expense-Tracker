@@ -20,6 +20,11 @@ int main(int argc, char* argv[])
 	{
 		listExpenses(expense_manager, argc, argv);
 	}
+	else if (strcmp(argv[1], "delete") == 0)
+	{
+		deleteExpenses(expense_manager, argc, argv);
+		expense_manager.writeToFile();
+	}
 	else if (strcmp(argv[1], "help") == 0)
 	{
 		expense_manager.showHelper(argv[0]);
