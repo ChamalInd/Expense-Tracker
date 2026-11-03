@@ -16,6 +16,10 @@ int main(int argc, char* argv[])
 		addExpense(expense_manager, argc, argv);
 		expense_manager.writeToFile();
 	}
+	else if (strcmp(argv[1], "list") == 0 || strcmp(argv[1], "summary") == 0)
+	{
+		listExpenses(expense_manager, argc, argv);
+	}
 	else if (strcmp(argv[1], "help") == 0)
 	{
 		expense_manager.showHelper(argv[0]);

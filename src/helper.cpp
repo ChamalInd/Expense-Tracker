@@ -1,5 +1,24 @@
 #include "../includes/includes.h"
 
+void listExpenses(ExpenseManager& em, int argc, char* arguments[])
+{
+	int year = 0;
+	int month = 0;
+	int day = 0;
+
+	if (argc == 2)
+	{
+	}
+	if (strcmp(arguments[1], "list") == 0)
+	{
+		em.listExpenseRecords(year, month, day);
+	}
+	else
+	{
+		em.summaryOfExpenses(year, month, day);
+	}
+}
+
 void addExpense(ExpenseManager& em, int argc, char* arguments[])
 {
 	if (argc < 4)
@@ -34,6 +53,21 @@ void printErrors(int errNo)
 			std::cout << "Incorrect argument format for the current operation.\nUse help command see the correct formatting." << std::endl;
 			break;
 	}
+}
+
+int getMaximumStringLength(std::vector<Expense>& vector)
+{
+	int length = 0;
+
+	for (Expense& e : vector)
+	{
+		if (e.getDescription().length() > length)
+		{
+			length = e.getDescription().length();
+		}
+	}
+
+	return length;
 }
 
 Date getToday()

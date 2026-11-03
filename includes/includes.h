@@ -5,6 +5,7 @@
 #include <cstring>
 #include <vector>
 #include <ctime>
+#include <iomanip>
 
 struct Date
 {
@@ -53,10 +54,11 @@ class ExpenseManager
 		
 		void createExpenseRecord(std::string description, float amount);
 		void deleteExpenseRecord(int expID);
-		void listExpenseRecords(int month, int year);
-		void summaryOfExpenses(int month, int year);
+		void listExpenseRecords(int year, int month, int day);
+		void summaryOfExpenses(int year, int month, int day);
 
 		void showHelper(char* appName);
+		std::vector<Expense> filterExpenses(int year, int month, int day);
 
 		void readFromFile();
 		void writeToFile();
@@ -66,4 +68,7 @@ class ExpenseManager
 void printErrors(int errNo);
 Date getToday();
 Date convertStringToDate(std::string& date);
+int getMaximumStringLength(std::vector<Expense>& vector);
+
 void addExpense(ExpenseManager& em, int argc, char* arguments[]);
+void listExpenses(ExpenseManager& em, int argc, char* arguments[]);

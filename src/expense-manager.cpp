@@ -25,14 +25,36 @@ void ExpenseManager::deleteExpenseRecord(int expID)
 
 }
 		
-void ExpenseManager::listExpenseRecords(int month, int year)
+void ExpenseManager::listExpenseRecords(int year, int month, int day)
 {
+	std::vector<Expense> filterredExpenses = filterExpenses(year, month, day);
+	int maxLength = getMaximumStringLength(filterredExpenses);
+	
+	std::cout << std::left << std::setw(4) << "ID" << std::left << std::setw(12) << "Date" << std::left << std::setw(maxLength + 3) << "Description" << std::setw(5) << "Amount" << std::endl;
 
+	for (Expense e : filterredExpenses)
+	{
+		int id = e.getID();
+		Date date = e.getDate();
+		std::string strDate = std::to_string(date.year) + "-" + std::to_string(date.month) + "-" + std::to_string(date.day);
+		std::string desc = e.getDescription();
+		float amount = e.getAmount();
+
+		std::cout << std::left << std::setw(4) << id << std::left << std::setw(12) << strDate << std::left << std::setw(maxLength + 3) << desc << std::setw(5) << amount << std::endl;
+	}
 }
 		
-void ExpenseManager::summaryOfExpenses(int month, int year)
+void ExpenseManager::summaryOfExpenses(int year, int month, int day)
 {
+	std::vector<Expense> filterredExpenses = filterExpenses(year, month, day);
+	float totalExpenses = 0;
 
+	for (Expense& e : filterredExpenses)
+	{
+		totalExpenses += e.getAmount();
+	}
+
+	std::cout << "Total expenses for given period: " << totalExpenses << " currency unit." << std::endl; 
 }
 
 void ExpenseManager::showHelper(char* appName)
@@ -49,6 +71,29 @@ void ExpenseManager::showHelper(char* appName)
 	std::cout << "        " << appName << " summary --month <month> -- Print the summary of all the available expenses belong to a certain month." << std::endl;
 	std::cout << "        " << appName << " summary --year <year> -- Print the summary of all the available expenses belong to a certain year.\n" << std::endl;
 	std::cout << "    " << appName << " help -- Prints this help message." << std::endl;
+}
+
+std::vector<Expense> ExpenseManager::filterExpenses(int year, int month, int day)
+{
+	std::vector<Expense> filteredExpenses;
+
+	bool hasYear = year > 0 ? true : false;
+	bool hasMonth = month > 0 ? true : false;
+	bool hasDay = day > 0 ? true : false;
+
+	for (Expense& exp : expenses)
+	{
+		if (hasYear && exp.getDate().year == year) 
+		{
+			filteredExpenses.push_back(exp);
+		}
+		else if (!hasYear && !hasMonth && !hasDay)
+		{
+			filteredExpenses.push_back(exp);
+		}
+	}
+
+	return filteredExpenses;
 }
 
 void ExpenseManager::readFromFile()
