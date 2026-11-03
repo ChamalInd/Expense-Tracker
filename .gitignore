@@ -1,0 +1,6 @@
+# local folders and files
+.DS_Store
+
+# executables
+*.out
+exptra
