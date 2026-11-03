@@ -56,7 +56,7 @@ class ExpenseManager
 		void listExpenseRecords(int month, int year);
 		void summaryOfExpenses(int month, int year);
 
-		void showHelper();
+		void showHelper(char* appName);
 
 		void readFromFile();
 		void writeToFile();
