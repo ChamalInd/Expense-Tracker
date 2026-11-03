@@ -5,10 +5,14 @@ void listExpenses(ExpenseManager& em, int argc, char* arguments[])
 	int year = 0;
 	int month = 0;
 	int day = 0;
-
-	if (argc == 2)
+	
+	for (int i = 2; i < argc; i+=2)
 	{
+		if (strcmp(arguments[i], "--year") == 0) year = atoi(arguments[i + 1]);
+		else if (strcmp(arguments[i], "--month") == 0) month = atoi(arguments[i + 1]);
+		else if (strcmp(arguments[i], "--day") == 0) day = atoi(arguments[i + 1]);
 	}
+
 	if (strcmp(arguments[1], "list") == 0)
 	{
 		em.listExpenseRecords(year, month, day);

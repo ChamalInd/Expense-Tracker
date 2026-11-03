@@ -28,6 +28,13 @@ void ExpenseManager::deleteExpenseRecord(int expID)
 void ExpenseManager::listExpenseRecords(int year, int month, int day)
 {
 	std::vector<Expense> filterredExpenses = filterExpenses(year, month, day);
+
+	if (filterredExpenses.size() < 1)
+	{
+		std::cout << "No expense records found for given period." << std::endl;
+		return;
+	}
+
 	int maxLength = getMaximumStringLength(filterredExpenses);
 	
 	std::cout << std::left << std::setw(4) << "ID" << std::left << std::setw(12) << "Date" << std::left << std::setw(maxLength + 3) << "Description" << std::setw(5) << "Amount" << std::endl;
@@ -47,6 +54,13 @@ void ExpenseManager::listExpenseRecords(int year, int month, int day)
 void ExpenseManager::summaryOfExpenses(int year, int month, int day)
 {
 	std::vector<Expense> filterredExpenses = filterExpenses(year, month, day);
+	
+	if (filterredExpenses.size() < 1)
+	{
+		std::cout << "No expense records found for given period." << std::endl;
+		return;
+	}
+
 	float totalExpenses = 0;
 
 	for (Expense& e : filterredExpenses)
