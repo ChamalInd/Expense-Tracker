@@ -23,9 +23,9 @@ void Expense::setDate(std::string& newDate)
 	}
 	dateItems.push_back(stoi(word));
 	
-	formattedDate.day = dateItems[0];
+	formattedDate.day = dateItems[2];
 	formattedDate.month = dateItems[1];
-	formattedDate.year = dateItems[2];
+	formattedDate.year = dateItems[0];
 
 	date = formattedDate;
 }
@@ -63,7 +63,7 @@ float Expense::getAmount() const
 std::string Expense::convertToString() const
 {
 	std::string formattedDate = std::to_string(getDate().year) + "-" + std::to_string(getDate().month) + "-" + std::to_string(getDate().day); 
-	std::string newStr = std::to_string(getID()) + "|" + getDescription() + "|" + formattedDate + "|" + std::to_string(getAmount());
+	std::string newStr = std::to_string(getID()) + "|" + formattedDate + "|" + getDescription() + "|" + std::to_string(getAmount());
 	return newStr;
 }
 		
@@ -87,8 +87,8 @@ void Expense::convertFromString(std::string& line)
 	float newAmount = std::stof(details[3]);
 
 	setID(newID);
-	setDescription(details[1]);
-	setDate(details[2]);
+	setDate(details[1]);
+	setDescription(details[2]);
 	setAmount(newAmount);
 }
 

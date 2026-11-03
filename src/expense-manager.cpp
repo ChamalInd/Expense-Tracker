@@ -60,6 +60,13 @@ void ExpenseManager::readFromFile()
 		
 void ExpenseManager::writeToFile()
 {
+	std::ofstream File(".records", std::ios::trunc);
 
+	for (Expense expense : expenses)
+	{
+		File << expense.convertToString() << std::endl;
+	}
+
+	File.close();
 }
 
