@@ -3,4 +3,5 @@
 
 # executables
 *.out
-exptra
+exptrc
+build/
