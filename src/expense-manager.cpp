@@ -97,7 +97,35 @@ std::vector<Expense> ExpenseManager::filterExpenses(int year, int month, int day
 
 	for (Expense& exp : expenses)
 	{
-		if (hasYear && exp.getDate().year == year) 
+		int expYear = exp.getDate().year;
+		int expMonth = exp.getDate().month;
+		int expDay = exp.getDate().day;
+
+		if (hasYear && hasMonth && hasDay && expYear == year && expMonth == month && expDay == day)
+		{
+			filteredExpenses.push_back(exp);
+		}
+		else if (hasYear && hasMonth && !hasDay && expYear == year && expMonth == month)
+		{
+			filteredExpenses.push_back(exp);
+		}
+		else if (hasYear && !hasMonth && hasDay && expYear == year && expDay == day)
+		{
+			filteredExpenses.push_back(exp);
+		}
+		else if (hasYear && !hasMonth && !hasDay && expYear == year)
+		{
+			filteredExpenses.push_back(exp);
+		}
+		else if (!hasYear && hasMonth && hasDay && expMonth == month && expDay == day)
+		{
+			filteredExpenses.push_back(exp);
+		}
+		else if (!hasYear && hasMonth && !hasDay && expMonth == month)
+		{
+			filteredExpenses.push_back(exp);
+		}
+		else if (!hasYear && !hasMonth && hasDay && expDay == day)
 		{
 			filteredExpenses.push_back(exp);
 		}
