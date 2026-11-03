@@ -38,7 +38,24 @@ void ExpenseManager::showHelper()
 
 void ExpenseManager::readFromFile()
 {
+	std::ifstream File(".records");
+	if (!File.is_open())
+	{
+		std::ofstream newFile(".records");
+		newFile.close();
+		std::ifstream File(".records");
+	}
+	
+	std::string line;
 
+	while (getline(File, line))
+	{
+		Expense expense;
+		expense.convertFromString(line);
+		expenses.push_back(expense);
+	}
+
+	File.close();
 }
 		
 void ExpenseManager::writeToFile()
