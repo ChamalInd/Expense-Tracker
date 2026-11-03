@@ -7,26 +7,8 @@ void Expense::setID(int& newID)
 
 void Expense::setDate(std::string& newDate)
 {
-	Date formattedDate;
-	std::vector<int> dateItems;
-	std::string word = "";
 
-	for (char& c : newDate)
-	{
-		if (c == '-')
-		{
-			dateItems.push_back(std::stoi(word));
-			word = "";
-			continue;
-		}
-		word += c;
-	}
-	dateItems.push_back(stoi(word));
-	
-	formattedDate.day = dateItems[2];
-	formattedDate.month = dateItems[1];
-	formattedDate.year = dateItems[0];
-
+	Date formattedDate = convertStringToDate(newDate);
 	date = formattedDate;
 }
 

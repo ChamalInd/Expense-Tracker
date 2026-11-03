@@ -13,7 +13,11 @@ int ExpenseManager::getExpensesCount() const
 		
 void ExpenseManager::createExpenseRecord(std::string description, float amount)
 {
-
+	Date today = getToday();
+	int id = expenses.back().getID() + 1;
+	Expense newExpense(id, today, description, amount);
+	expenses.push_back(newExpense);
+	std::cout << "Expense added successfully [ID: " << 1 << "]" << std::endl;
 }
 		
 void ExpenseManager::deleteExpenseRecord(int expID)

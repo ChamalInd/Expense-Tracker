@@ -61,3 +61,9 @@ class ExpenseManager
 		void readFromFile();
 		void writeToFile();
 };
+
+
+void printErrors(int errNo);
+Date getToday();
+Date convertStringToDate(std::string& date);
+void addExpense(ExpenseManager& em, int argc, char* arguments[]);
