@@ -11,7 +11,7 @@ void ExpenseManager::createExpenseRecord(std::string description, float amount)
 		
 void ExpenseManager::deleteExpenseRecord(int expID)
 {
-	int index = 0;
+	size_t index = 0;
 
 	for (Expense& e : expenses)
 	{
@@ -42,15 +42,10 @@ void ExpenseManager::listExpenseRecords(int year, int month, int day)
 	}
 
 	int maxLength = getMaximumStringLength(filterredExpenses);
-	int length = maxLength + 29;
 	
 	std::cout << std::left << std::setw(4) << "ID" << std::setw(12) << "Date" << std::setw(maxLength + 3) << "Description" << std::setw(8) << "Amount ($)" << std::endl;
-
-	for (int i = 0; i < length; i++)
-	{
-		std::cout << "-";
-	}
-	std::cout << std::endl;
+	
+	std::cout << std::string(maxLength + 29, '-') << std::endl;
 
 	for (Expense e : filterredExpenses)
 	{

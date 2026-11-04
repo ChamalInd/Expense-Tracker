@@ -104,7 +104,7 @@ std::string formatCurrency(float amount)
 
 int getMaximumStringLength(std::vector<Expense>& vector)
 {
-	int length = 0;
+	size_t length = 0;
 
 	for (Expense& e : vector)
 	{
@@ -114,7 +114,9 @@ int getMaximumStringLength(std::vector<Expense>& vector)
 		}
 	}
 
-	return length;
+	int maxLength = length > 11 ? length : 12;
+
+	return maxLength;
 }
 
 Date getToday()
