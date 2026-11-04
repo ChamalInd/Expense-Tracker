@@ -34,6 +34,7 @@ class Expense
 
 		int getID() const;
 		Date getDate() const;
+		std::string getStrDate() const;
 		std::string getDescription() const;
 		float getAmount() const;
 
@@ -46,12 +47,8 @@ class ExpenseManager
 {
 	private:
 		std::vector<Expense> expenses;
-		bool isChanged = false;
 
-	public:
-		bool getIsChanged() const;
-		int getExpensesCount() const;
-		
+ public:
 		void createExpenseRecord(std::string description, float amount);
 		void deleteExpenseRecord(int expID);
 		void listExpenseRecords(int year, int month, int day);
@@ -69,6 +66,7 @@ void printErrors(int errNo);
 Date getToday();
 Date convertStringToDate(std::string& date);
 int getMaximumStringLength(std::vector<Expense>& vector);
+std::string formatCurrency(float amount);
 
 void addExpense(ExpenseManager& em, int argc, char* arguments[]);
 void listExpenses(ExpenseManager& em, int argc, char* arguments[]);

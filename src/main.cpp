@@ -29,6 +29,11 @@ int main(int argc, char* argv[])
 	{
 		expense_manager.showHelper(argv[0]);
 	}
+	else
+	{
+		printErrors(3);
+		return 0;
+	}
 
 	return 0;
 }

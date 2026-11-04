@@ -32,6 +32,29 @@ Date Expense::getDate() const
 	return date;
 }
 		
+std::string Expense::getStrDate() const
+{
+	std::string strDate = std::to_string(getDate().year) + "-";
+	if (getDate().month < 10)
+	{
+		strDate = strDate + "0" + std::to_string(getDate().month) + "-"; 
+	}
+	else
+	{
+		strDate = strDate + std::to_string(getDate().month) + "-";
+	}
+	if (getDate().day < 10)
+	{
+		strDate = strDate + "0" + std::to_string(getDate().day); 
+	}
+	else
+	{
+		strDate = strDate + std::to_string(getDate().day);
+	}
+
+	return strDate;
+}
+
 std::string Expense::getDescription() const
 {
 	return description;

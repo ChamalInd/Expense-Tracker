@@ -8,9 +8,19 @@ void listExpenses(ExpenseManager& em, int argc, char* arguments[])
 	
 	for (int i = 2; i < argc; i+=2)
 	{
+		if (i + 1 >= argc) {
+			printErrors(2);
+			return;
+		}
 		if (strcmp(arguments[i], "--year") == 0) year = atoi(arguments[i + 1]);
 		else if (strcmp(arguments[i], "--month") == 0) month = atoi(arguments[i + 1]);
 		else if (strcmp(arguments[i], "--day") == 0) day = atoi(arguments[i + 1]);
+	}
+
+	if (month > 12 || day > 31)
+	{
+		printErrors(4);
+		return;
 	}
 
 	if (strcmp(arguments[1], "list") == 0)
@@ -64,9 +74,32 @@ void printErrors(int errNo)
 			std::cout << "Use help command to print the help message." << std::endl;
 			break;
 		case 2:
-			std::cout << "Incorrect argument format for the current operation.\nUse help command see the correct formatting." << std::endl;
+			std::cout << "Incorrect argument format for the current operation.\nUse help command to see the correct formatting." << std::endl;
+			break;
+		case 3:
+			std::cout << "Incorrect operation.\nUse help command to see the valid operations." << std::endl;
+			break;
+		case 4:
+			std::cout << "Incorrect filter options for date.\nPlease recheck the validity of entered date." << std::endl;
 			break;
 	}
+}
+
+std::string formatCurrency(float amount)
+{
+	std::string strAmount = "";
+	std::string str = std::to_string(amount);
+	int counter = 0;
+	bool decimalPassed = false;
+
+	for (char& c : str)
+	{
+		if (c == '.') decimalPassed = true;
+		else if (decimalPassed) counter++;
+		if (counter == 3) break;
+		strAmount += c;
+	}
+	return strAmount;
 }
 
 int getMaximumStringLength(std::vector<Expense>& vector)

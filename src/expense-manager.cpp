@@ -1,20 +1,9 @@
 #include "../includes/includes.h"
 
-
-bool ExpenseManager::getIsChanged() const
-{
-	return isChanged;
-}
-		
-int ExpenseManager::getExpensesCount() const
-{
-	return expenses.size();
-}
-		
 void ExpenseManager::createExpenseRecord(std::string description, float amount)
 {
 	Date today = getToday();
-	int id = expenses.back().getID() + 1;
+	int id = expenses.empty() ? 1 : expenses.back().getID() + 1;
 	Expense newExpense(id, today, description, amount);
 	expenses.push_back(newExpense);
 	std::cout << "Expense added successfully [ID: " << id << "]" << std::endl;
@@ -53,18 +42,24 @@ void ExpenseManager::listExpenseRecords(int year, int month, int day)
 	}
 
 	int maxLength = getMaximumStringLength(filterredExpenses);
+	int length = maxLength + 29;
 	
-	std::cout << std::left << std::setw(4) << "ID" << std::left << std::setw(12) << "Date" << std::left << std::setw(maxLength + 3) << "Description" << std::setw(5) << "Amount" << std::endl;
+	std::cout << std::left << std::setw(4) << "ID" << std::setw(12) << "Date" << std::setw(maxLength + 3) << "Description" << std::setw(8) << "Amount ($)" << std::endl;
+
+	for (int i = 0; i < length; i++)
+	{
+		std::cout << "-";
+	}
+	std::cout << std::endl;
 
 	for (Expense e : filterredExpenses)
 	{
 		int id = e.getID();
-		Date date = e.getDate();
-		std::string strDate = std::to_string(date.year) + "-" + std::to_string(date.month) + "-" + std::to_string(date.day);
+		std::string date = e.getStrDate();
 		std::string desc = e.getDescription();
-		float amount = e.getAmount();
+		std::string amount = formatCurrency(e.getAmount());
 
-		std::cout << std::left << std::setw(4) << id << std::left << std::setw(12) << strDate << std::left << std::setw(maxLength + 3) << desc << std::setw(5) << amount << std::endl;
+		std::cout << std::left << std::setw(4) << id << std::setw(12) << date << std::setw(maxLength + 3) << desc << std::right << std::setw(8) << amount << std::endl;
 	}
 }
 		
@@ -85,7 +80,9 @@ void ExpenseManager::summaryOfExpenses(int year, int month, int day)
 		totalExpenses += e.getAmount();
 	}
 
-	std::cout << "Total expenses for given period: " << totalExpenses << " currency unit." << std::endl; 
+	std::string strTotal = formatCurrency(totalExpenses);
+
+	std::cout << "Total expenses for given period: $ " << strTotal << std::endl; 
 }
 
 void ExpenseManager::showHelper(char* appName)
@@ -118,35 +115,7 @@ std::vector<Expense> ExpenseManager::filterExpenses(int year, int month, int day
 		int expMonth = exp.getDate().month;
 		int expDay = exp.getDate().day;
 
-		if (hasYear && hasMonth && hasDay && expYear == year && expMonth == month && expDay == day)
-		{
-			filteredExpenses.push_back(exp);
-		}
-		else if (hasYear && hasMonth && !hasDay && expYear == year && expMonth == month)
-		{
-			filteredExpenses.push_back(exp);
-		}
-		else if (hasYear && !hasMonth && hasDay && expYear == year && expDay == day)
-		{
-			filteredExpenses.push_back(exp);
-		}
-		else if (hasYear && !hasMonth && !hasDay && expYear == year)
-		{
-			filteredExpenses.push_back(exp);
-		}
-		else if (!hasYear && hasMonth && hasDay && expMonth == month && expDay == day)
-		{
-			filteredExpenses.push_back(exp);
-		}
-		else if (!hasYear && hasMonth && !hasDay && expMonth == month)
-		{
-			filteredExpenses.push_back(exp);
-		}
-		else if (!hasYear && !hasMonth && hasDay && expDay == day)
-		{
-			filteredExpenses.push_back(exp);
-		}
-		else if (!hasYear && !hasMonth && !hasDay)
+		if ((!hasYear || expYear == year) && (!hasMonth || expMonth == month) && (!hasDay || expDay == day))
 		{
 			filteredExpenses.push_back(exp);
 		}
