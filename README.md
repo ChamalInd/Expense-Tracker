@@ -2,8 +2,7 @@
 
 A simple expense tracker that lives in your terminal, written in C++. Record what you spend, list your expenses, filter them by year, month or day, and see the total for any period. Expenses are stored in a plain text file in the directory you run the program from, so every project folder can have its own expense log.
 
-![Expense-Tracker demo](assets/demo)
-
+![Expense-Tracker demo](assets/demo.gif)
 
 ## Table of Contents
 
